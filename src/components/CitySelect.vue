@@ -1,23 +1,23 @@
 <template>
   <div class="form-control-inline">
     <select class="form-control" v-model="provinceId">
-      <option v-for="obj in item1" :value="obj.code">{{obj.name}}</option>
+      <option v-for="obj in item1" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
     <select class="form-control" v-model="cityId">
-      <option v-for="obj in item2" :value="obj.code">{{obj.name}}</option>
+      <option v-for="obj in item2" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
     <select class="form-control" v-model="areaId">
-      <option v-for="obj in item3" :value="obj.code">{{obj.name}}</option>
+      <option v-for="obj in item3" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
   </div>
 </template>
 
 <script>
-import CityJSON from './ChinaCityJSON'
+import CityJSON from "./ChinaCityJSON";
 export default {
   data() {
     return {
-      inputDom:[],
+      inputDom: [],
       provinceId: 0,
       cityId: 0,
       areaId: 0,
@@ -27,7 +27,7 @@ export default {
       item1: [],
       item2: [],
       item3: [],
-      timer:0
+      timer: 0
     };
   },
   mounted() {
@@ -38,39 +38,43 @@ export default {
   props: ["val"],
   watch: {
     provinceId() {
-      this.item2 = [{
-        code: "",
-        name: "市级"
-      }];
+      this.item2 = [
+        {
+          code: "",
+          name: "市级"
+        }
+      ];
       this.cityName = "";
       this.cityId = this.item2[0].code;
       this.areaName = "";
-      if(this.provinceId){
+      if (this.provinceId) {
         this.item2 = this.item2.concat(this.getCityByCode(this.provinceId));
-        setTimeout(()=>{
+        setTimeout(() => {
           this.provinceName = this.item1[this.inputDom[0].selectedIndex].name;
           this.onChange();
-        },10);
-      }else{
+        }, 10);
+      } else {
         this.provinceName = "";
         this.onChange();
       }
       //this.cityName = this.item2[0].name;
     },
     cityId() {
-      this.item3 = [{
-        code: "",
-        name: "县、区级"
-      }];
+      this.item3 = [
+        {
+          code: "",
+          name: "县、区级"
+        }
+      ];
       this.areaName = "";
       this.areaId = this.item3[0].code;
-      if(this.cityId){
+      if (this.cityId) {
         this.item3 = this.item3.concat(this.getCityByCode(this.cityId));
-        setTimeout(()=>{
+        setTimeout(() => {
           this.cityName = this.item2[this.inputDom[1].selectedIndex].name;
           this.onChange();
-        },10);
-      }else{
+        }, 10);
+      } else {
         this.cityName = "";
         this.onChange();
       }
@@ -78,20 +82,20 @@ export default {
     },
     areaId() {
       //this.areaName = this.item3[this.inputDom[2].selectedIndex].name;
-      if(this.areaId){
-          setTimeout(()=>{
-            this.areaName = this.item3[this.inputDom[2].selectedIndex].name;
-            this.onChange();
-          },10);
-      }else{
+      if (this.areaId) {
+        setTimeout(() => {
+          this.areaName = this.item3[this.inputDom[2].selectedIndex].name;
+          this.onChange();
+        }, 10);
+      } else {
         this.areaName = "";
         this.onChange();
       }
     },
     val() {
-      if("undefined" == typeof(this.val) || "" === this.val){
+      if ("undefined" == typeof this.val || "" === this.val) {
         return;
-      }else if(false === this.val){
+      } else if (false === this.val) {
         //传入false表示重置
         this.provinceId = "";
         return;
@@ -101,12 +105,11 @@ export default {
         this.provinceId = ret[0];
         setTimeout(() => {
           this.cityId = ret[1];
-          setTimeout(()=>{
+          setTimeout(() => {
             this.areaId = ret[2];
-          },10);
+          }, 10);
         }, 10);
       }
-
     }
   },
   methods: {
@@ -155,7 +158,7 @@ export default {
       });
       return ret;
     },
-    onChange(){
+    onChange() {
       let ret = {
         provinceId: this.provinceId,
         cityId: this.cityId,
@@ -163,14 +166,48 @@ export default {
         provinceName: this.provinceName,
         cityName: this.cityName,
         areaName: this.areaName,
-        str:this.provinceName + this.cityName + this.areaName
+        str: this.provinceName + this.cityName + this.areaName
       };
       clearTimeout(this.timer);
-      this.timer = setTimeout(()=>{
+      this.timer = setTimeout(() => {
         //console.log("change",ret);
         this.$emit("change", ret);
-      },50);
+      }, 50);
     }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.form-control-inline {
+  display: inline-block;
+  .form-control {
+    display: inline-block;
+    width: auto;
+    height: 34px;
+    padding: 6px 12px;
+    margin: 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s,
+      -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+    }
+  }
+}
+</style>
