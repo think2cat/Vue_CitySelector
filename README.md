@@ -17,7 +17,7 @@ npm i think2cat/Vue_CitySelector --save
 
 ## 使用
 
-示例请看 [src/App.vue](blob/master/src/App.vue)
+示例请看 [src/App.vue](src/App.vue)
 
 ```
 1. import module
