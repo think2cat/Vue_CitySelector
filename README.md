@@ -1,6 +1,5 @@
 # Vue_CitySelector
-中国城市三级联动下拉选择器
-包含港澳台
+中国城市三级联动下拉选择器（包含港澳台）
 
 ![image](./screenshot/screenshot.png)
 
@@ -8,7 +7,10 @@
 
 之前是放在[githubt:practice/Select4CityofChina](https://github.com/think2cat/practice/tree/master/Select4CityofChina)里面
 
-因为实际使用比较多，干脆独立出来，方便分支
+因为实际项目使用比较多，干脆独立出来，方便分支
+
+* [master](/think2cat/Vue_CitySelector)
+* [element-ui branch](/think2cat/Vue_CitySelector/tree/element-ui)
 
 ## 安装
 ```
