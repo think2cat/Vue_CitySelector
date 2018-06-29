@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div><CitySelect @change="handelChange"/></div>
+    <div><CitySelector @change="handelChange"/></div>
     <div class="tips" v-text="tips"></div>
+    <div><CitySelector val="440303"/></div>
   </div>
 </template>
 
 <script>
-import CitySelect from './components/CitySelect'
+import CitySelector from './components/CitySelect'
 
 export default {
   name: 'app',
@@ -17,7 +17,7 @@ export default {
     }
   },
   components: {
-    CitySelect
+    CitySelector
   },
   methods:{
     handelChange(obj){

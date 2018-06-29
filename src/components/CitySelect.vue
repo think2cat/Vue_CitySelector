@@ -1,12 +1,12 @@
 <template>
   <div class="form-control-inline">
-    <select class="form-control" v-model="provinceId">
+    <select class="form-control" v-model="provinceId" ref="province">
       <option v-for="obj in item1" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
-    <select class="form-control" v-model="cityId">
+    <select class="form-control" v-model="cityId" ref="city">
       <option v-for="obj in item2" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
-    <select class="form-control" v-model="areaId">
+    <select class="form-control" v-model="areaId" ref="area">
       <option v-for="obj in item3" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
   </div>
@@ -17,13 +17,9 @@ import CityJSON from "./ChinaCityJSON";
 export default {
   data() {
     return {
-      inputDom: [],
       provinceId: 0,
       cityId: 0,
       areaId: 0,
-      provinceName: "",
-      cityName: "",
-      areaName: "",
       item1: [],
       item2: [],
       item3: [],
@@ -31,7 +27,6 @@ export default {
     };
   },
   mounted() {
-    this.inputDom = this.$el.querySelectorAll("select");
     this.item1 = this.getCityByCode();
     this.provinceId = this.item1[0].code;
   },
@@ -44,20 +39,13 @@ export default {
           name: "市级"
         }
       ];
-      this.cityName = "";
       this.cityId = this.item2[0].code;
-      this.areaName = "";
       if (this.provinceId) {
         this.item2 = this.item2.concat(this.getCityByCode(this.provinceId));
-        setTimeout(() => {
-          this.provinceName = this.item1[this.inputDom[0].selectedIndex].name;
-          this.onChange();
-        }, 10);
-      } else {
-        this.provinceName = "";
-        this.onChange();
       }
-      //this.cityName = this.item2[0].name;
+      setTimeout(() => {
+        this.onChange();
+      }, 10);
     },
     cityId() {
       this.item3 = [
@@ -66,31 +54,18 @@ export default {
           name: "县、区级"
         }
       ];
-      this.areaName = "";
       this.areaId = this.item3[0].code;
       if (this.cityId) {
         this.item3 = this.item3.concat(this.getCityByCode(this.cityId));
-        setTimeout(() => {
-          this.cityName = this.item2[this.inputDom[1].selectedIndex].name;
-          this.onChange();
-        }, 10);
-      } else {
-        this.cityName = "";
-        this.onChange();
       }
-      //this.areaName = this.item3[0].name;
+      setTimeout(() => {
+        this.onChange();
+      }, 10);
     },
     areaId() {
-      //this.areaName = this.item3[this.inputDom[2].selectedIndex].name;
-      if (this.areaId) {
-        setTimeout(() => {
-          this.areaName = this.item3[this.inputDom[2].selectedIndex].name;
-          this.onChange();
-        }, 10);
-      } else {
-        this.areaName = "";
+      setTimeout(() => {
         this.onChange();
-      }
+      }, 10);
     },
     val() {
       if ("undefined" == typeof this.val || "" === this.val) {
@@ -117,7 +92,12 @@ export default {
       let tmp = [],
         ret = [];
       if ("undefined" == typeof code || "" == code) {
-        tmp = CityJSON;
+        tmp = [
+          {
+            code: "",
+            name: "省级"
+          }
+        ].concat(CityJSON);
       } else {
         for (let i = 0; i < CityJSON.length; i++) {
           if (("" + code).substr(0, 2) == CityJSON[i].code.substr(0, 2)) {
@@ -163,14 +143,19 @@ export default {
         provinceId: this.provinceId,
         cityId: this.cityId,
         areaId: this.areaId,
-        provinceName: this.provinceName,
-        cityName: this.cityName,
-        areaName: this.areaName,
-        str: this.provinceName + this.cityName + this.areaName
+        provinceName: this.provinceId
+          ? this.item1[this.$refs.province.selectedIndex].name
+          : "",
+        cityName: this.cityId
+          ? this.item2[this.$refs.city.selectedIndex].name
+          : "",
+        areaName: this.areaId
+          ? this.item3[this.$refs.area.selectedIndex].name
+          : ""
       };
+      ret.str = ret.provinceName + ret.cityName + ret.areaName;
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
-        //console.log("change",ret);
         this.$emit("change", ret);
       }, 50);
     }
