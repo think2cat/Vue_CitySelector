@@ -142,9 +142,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.filter-item{
-  margin-left:1em;
-}
-</style>
-
