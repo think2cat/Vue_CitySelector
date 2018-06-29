@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <div><CitySelector @change="handelChange"/></div>
+    <div><CitySelector @change = "handelChange"/></div>
     <div class="tips" v-text="tips"></div>
-    <div><CitySelector val="440303"/></div>
+    <div><CitySelector :val="myId"/></div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Element from 'element-ui'
 import CitySelector from './components/CitySelect'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(Element);
 
 export default {
   name: 'app',
   data(){
     return {
-      tips:''
+      tips:'',
+      myId: ''
     }
+  },
+  mounted(){
+    setTimeout(() => {
+      this.myId = 440303;
+    },10);
   },
   components: {
     CitySelector
