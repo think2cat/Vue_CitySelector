@@ -1,12 +1,12 @@
 <template>
   <div style="display:inline">
-    <el-select clearable class="filter-item" ref="province" v-model="provinceId" placeholder="请选择省">
+    <el-select clearable ref="province" v-model="provinceId" placeholder="请选择省">
       <el-option v-for="obj in item1" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
-    <el-select clearable class="filter-item" ref="city" v-model="cityId" placeholder="请选择市">
+    <el-select clearable ref="city" v-model="cityId" placeholder="请选择市">
       <el-option v-for="obj in item2" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
-    <el-select clearable class="filter-item" ref="area" v-model="areaId" placeholder="请选择县或区">
+    <el-select clearable ref="area" v-model="areaId" placeholder="请选择县或区">
       <el-option v-for="obj in item3" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
   </div>
