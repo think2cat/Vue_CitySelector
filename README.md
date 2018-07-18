@@ -9,8 +9,8 @@
 
 因为实际项目使用比较多，干脆独立出来，方便分支
 
-* [master](/think2cat/Vue_CitySelector)
-* [element-ui branch](/think2cat/Vue_CitySelector/tree/element-ui)
+* [master](https://github.com/think2cat/Vue_CitySelector/)
+* [element-ui branch](https://github.com/think2cat/Vue_CitySelector/tree/element-ui)
 
 ## 安装
 ```
