@@ -1,12 +1,12 @@
 <template>
   <div style="display:inline">
-    <el-select clearable ref="province" v-model="provinceId" placeholder="请选择省">
+    <el-select clearable ref="province" v-model="provinceId" placeholder="请选择省" :disabled="disabled">
       <el-option v-for="obj in item1" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
-    <el-select clearable ref="city" v-model="cityId" placeholder="请选择市">
+    <el-select clearable ref="city" v-model="cityId" placeholder="请选择市" :disabled="disabled">
       <el-option v-for="obj in item2" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
-    <el-select clearable ref="area" v-model="areaId" placeholder="请选择县或区">
+    <el-select clearable ref="area" v-model="areaId" placeholder="请选择县或区" :disabled="disabled">
       <el-option v-for="obj in item3" :value="obj.code" :key="obj.code" :label="obj.name"></el-option>
     </el-select>
   </div>
@@ -28,8 +28,18 @@ export default {
   },
   mounted() {
     this.item1 = this.getCityByCode();
+    console.log("val",this.val);
   },
-  props: ["val"],
+  props: {
+    val: {
+      type: String,
+      default: ""
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
   watch: {
     provinceId() {
       this.item2 = [];
