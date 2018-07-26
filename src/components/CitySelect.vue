@@ -28,7 +28,7 @@ export default {
   },
   mounted() {
     this.item1 = this.getCityByCode();
-    console.log("val",this.val);
+    // console.log("val",this.val);
   },
   props: {
     val: {
@@ -67,7 +67,7 @@ export default {
       },10);
     },
     val() {
-      console.log("val has change",this.val);
+      // console.log("val has change",this.val);
       if("undefined" == typeof(this.val) || "" === this.val){
         return;
       }else if(false === this.val){
