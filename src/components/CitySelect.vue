@@ -32,7 +32,6 @@ export default {
   },
   props: {
     val: {
-      type: String,
       default: ""
     },
     disabled: {
