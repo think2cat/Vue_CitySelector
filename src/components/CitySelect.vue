@@ -28,18 +28,19 @@ export default {
   },
   mounted() {
     this.item1 = this.getCityByCode();
-    // console.log("val",this.val);
+    // console.log('val',this.val);
   },
   props: {
     val: {
-      default: ""
+      default: ''
     },
     disabled: {
       type: Boolean,
       default: false
     },
     width: {
-      type: String
+      type: String,
+	  default: 'auto'
     }
   },
   watch: {
@@ -69,16 +70,16 @@ export default {
       },10);
     },
     val() {
-      // console.log("val has change",this.val);
-      if("undefined" == typeof(this.val) || "" === this.val){
+      // console.log('val has change',this.val);
+      if('undefined' === typeof(this.val) || '' === this.val){
         return;
       }else if(false === this.val){
         //传入false表示重置
-        this.provinceId = "";
+        this.provinceId = '';
         return;
       }
       let ret = this.getCityByCode(this.val);
-      if (3 == ret.length) {
+      if (3 === ret.length) {
         this.provinceId = ret[0];
         setTimeout(() => {
           this.cityId = ret[1];
@@ -93,29 +94,29 @@ export default {
     getCityByCode(code) {
       let tmp = [],
         ret = [];
-      if ("undefined" == typeof code || "" == code) {
+      if ('undefined' === typeof code || '' === code) {
         tmp = CityJSON;
       } else {
         for (let i = 0; i < CityJSON.length; i++) {
-          if (("" + code).substr(0, 2) == CityJSON[i].code.substr(0, 2)) {
-            if ("0000" == ("" + code).substr(2)) {
+          if (('' + code).substr(0, 2) === CityJSON[i].code.substr(0, 2)) {
+            if ('0000' === ('' + code).substr(2)) {
               //如果查询的是省级，返回市级
               tmp = CityJSON[i].children || [];
               break;
             } else {
               for (let j = 0; j < CityJSON[i].children.length; j++) {
                 if (
-                  ("" + code).substr(0, 4) ==
+                  ('' + code).substr(0, 4) ==
                   CityJSON[i].children[j].code.substr(0, 4)
                 ) {
                   tmp = CityJSON[i].children[j].children || [];
-                  if ("00" == ("" + code).substr(4)) {
+                  if ('00' === ('' + code).substr(4)) {
                     //如果查询是市级，则返回县级
                     break;
                   } else {
                     ret = [CityJSON[i].code, CityJSON[i].children[j].code];
                     for (let k = 0; k < tmp.length; k++) {
-                      if (code == tmp[k].code) {
+                      if (code === tmp[k].code) {
                         ret.push(tmp[k].code);
                       }
                     }
@@ -147,7 +148,7 @@ export default {
       ret.str = ret.provinceName + ret.cityName + ret.areaName;
       clearTimeout(this.timer);
       this.timer = setTimeout(()=>{
-        this.$emit("change", ret);
+        this.$emit('change', ret);
       },50);
     }
   }
