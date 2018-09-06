@@ -1,12 +1,12 @@
 <template>
   <div class="form-control-inline">
-    <select class="form-control" v-model="provinceId" ref="province" :disabled="disabled">
+    <select class="form-control" :style="'width:' + width" v-model="provinceId" ref="province" :disabled="disabled">
       <option v-for="obj in item1" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
-    <select class="form-control" v-model="cityId" ref="city" :disabled="disabled">
+    <select class="form-control" :style="'width:' + width" v-model="cityId" ref="city" :disabled="disabled">
       <option v-for="obj in item2" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
-    <select class="form-control" v-model="areaId" ref="area" :disabled="disabled">
+    <select class="form-control" :style="'width:' + width" v-model="areaId" ref="area" :disabled="disabled">
       <option v-for="obj in item3" :value="obj.code" :key="obj.code">{{obj.name}}</option>
     </select>
   </div>
@@ -38,6 +38,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: 'auto'
     }
   },
   watch: {
