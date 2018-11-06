@@ -50,4 +50,4 @@ components: { CitySelector },
 ```
 <CitySelector val="440303"/>
 ```
-初始地址为广东深圳罗湖，目前只能填写三级areaId值才有效，如果传入的为广东省provinceId则无效
+传入值为false时，重置菜单
